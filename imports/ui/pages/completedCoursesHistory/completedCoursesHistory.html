@@ -1,0 +1,32 @@
+<template name="completedCoursesHistory">
+  <div class="container py-4">
+    <h2 class="text-center text-success mb-4">Completed Courses History</h2>
+
+    {{#if ShowHistory.length}}
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped shadow-sm">
+        <thead class="table-success">
+          <tr>
+            <th>#</th>
+            <th>Course ID</th>
+            <th>Course Title</th>
+            <th>Completion Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each ShowHistory}}
+          <tr>
+            <td>{{@index}}</td>
+            <td>{{courseId}}</td>
+            <td>{{courseTitle}}</td>
+            <td>{{ completionDate}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+    {{else}}
+    <p class="text-center text-muted">No completed courses yet.</p>
+    {{/if}}
+  </div>
+</template>

@@ -1,0 +1,116 @@
+<template name="students">
+  <div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2>🎓 Students List</h2>
+      <a href="/register" class="btn btn-primary" id="create-student-btn">
+        ➕ Create Student
+      </a>
+    </div>
+
+    <div class="row">
+      {{#each listAllStudents}}
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div
+          class="card shadow-sm border-5 h-100 position-relative {{#if isAdmin profile.role}}border border-danger bg-secondary bg-opacity-10{{/if}}"
+        >
+          {{#unless isAdmin profile.role}}
+          <button
+            class="btn btn-primary btn-sm position-absolute top-0 end-0 m-2 enroll-btn"
+            data-id="{{_id}}"
+            data-bs-toggle="modal"
+            data-bs-target="#enrollModal"
+          >
+            Enroll Course
+          </button>
+          {{/unless}}
+
+          <div class="card-body">
+            <h3 class="card-title mb-1">
+              {{profile.firstName}} {{profile.lastName}}
+            </h3>
+            <h6 class="card-subtitle text-muted text-capitalize my-2">
+              {{profile.role}}
+            </h6>
+            <p class="card-text">
+              📧 {{emails.[0].address}}<br />
+              🧬 Gender: {{profile.gender}}<br />
+              🎂 Age: {{profile.age}}<br />
+            </p>
+            {{#unless isAdmin profile.role}}
+            <button
+              class="btn btn-outline-danger btn-sm delete-student-btn mb-3"
+              data-id="{{_id}}"
+            >
+              🗑️ Delete
+            </button>
+            <p>Enrolled courses:</p>
+            <ul>
+              {{#each enrolledCourseNames this}}
+              <li>
+                <div><strong>{{title}}</strong> — <em>{{state}}</em></div>
+              </li>
+              {{/each}}
+            </ul>
+            {{/unless}}
+          </div>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+
+    <div
+      class="modal fade"
+      id="enrollModal"
+      tabindex="-1"
+      aria-labelledby="enrollModalLabel"
+      aria-hidden="false"
+    >
+      <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="enrollModalLabel">
+              Enroll in a Course
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body">
+            <ul class="list-group">
+              {{#each listAllCourses}}
+              <li
+                class="list-group-item d-flex justify-content-between align-items-center"
+              >
+                <span>{{title}}</span>
+                <input
+                  type="checkbox"
+                  checked="{{isEnrolled _id}}"
+                  class="form-check-input enroll-course-checkbox"
+                  value="{{_id}}"
+                />
+              </li>
+              {{/each}}
+            </ul>
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button type="button" class="btn btn-success confirm-enroll-btn">
+              ✅ Enroll Selected
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

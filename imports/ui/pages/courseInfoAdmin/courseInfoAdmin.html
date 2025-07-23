@@ -1,0 +1,51 @@
+<template name="courseInfoAdmin">
+  {{#if getCourse}}
+  <div
+    class="card shadow-sm p-3 mb-4 bg-white rounded border-start border-4 border-primary"
+  >
+    <div class="card-body">
+      <h5 class="card-title text-primary mb-2">{{getCourse.title}}</h5>
+
+      <p class="card-text mb-1">
+        <strong>📝 Description:</strong> {{getCourse.desc}}
+      </p>
+      <p class="card-text mb-1">
+        <strong>🏷️ Category:</strong> {{getCourse.category}}
+      </p>
+      <p class="card-text mb-1">
+        <strong>⏱ Duration:</strong> {{getCourse.duration}} hours
+      </p>
+      <p class="card-text mb-3">
+        <strong>📦 Modules:</strong> {{getCourse.numModules}} modules
+      </p>
+
+      <ul class="list-group mb-3">
+        {{#each getCourseModules}}
+        <li class="list-group-item">
+          <h5><strong>{{title}}</strong></h5>
+          <h6 class="mt-2">{{description}}</h6>
+
+          {{#if getCourseModuleImg _id}}
+          <img
+            src="{{getCourseModuleImg _id}}"
+            alt="image"
+            width="200"
+            height="200"
+          />
+          {{/if}}
+        </li>
+        {{/each}}
+      </ul>
+
+      <div class="d-flex gap-2">
+        <a
+          href="/admin/courses/edit/{{getCourse._id}}"
+          class="btn btn-sm btn-warning"
+        >
+          ✏️ Edit
+        </a>
+      </div>
+    </div>
+  </div>
+  {{/if}}
+</template>

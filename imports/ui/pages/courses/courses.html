@@ -1,0 +1,35 @@
+<template name="courses">
+  <div class="container py-4">
+    <h1 class="mb-4 text-center text-primary">📚 My Courses</h1>
+
+    <div class="container py-4">
+      <div class="row">
+        {{#each getCourses}}
+        <div class="col-12 col-md-4 mb-4">
+          <div
+            class="card shadow-sm p-3 bg-white rounded border-start border-4 border-primary"
+          >
+            <div class="card-body">
+              <h5 class="card-title text-primary mb-2">{{title}}</h5>
+
+              <p class="card-text mb-1">
+                <strong>📝 Description:</strong> {{desc}}
+              </p>
+              <p class="card-text mb-1">
+                <strong>🏷️ Category:</strong> {{category}}
+              </p>
+              <p class="card-text mb-1">
+                <strong>⏱ Duration:</strong> {{duration}} hours
+              </p>
+              <p class="card-text mb-3">
+                <strong>📦 Modules:</strong> {{numModules}}
+              </p>
+              <a href="/{{_id}}" class="btn btn-success">Get</a>
+            </div>
+          </div>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</template>

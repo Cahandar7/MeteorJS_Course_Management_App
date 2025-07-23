@@ -1,0 +1,38 @@
+<template name="notificationAdmin">
+  <div class="container py-4">
+    <h3 class="text-primary mb-4">🔔 Notifications</h3>
+
+    {{#if getNotifications.length}}
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered align-middle">
+        <thead class="table-primary">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Student ID</th>
+            <th scope="col">Content</th>
+            <th scope="col">Course ID</th>
+            <th scope="col">Course Title</th>
+            <th scope="col">Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each getNotifications}}
+          <tr>
+            <th scope="row">{{@index}}</th>
+            <td>{{studentId}}</td>
+            <td>{{content}}</td>
+            <td>{{courseId}}</td>
+            <td>{{courseTitle}}</td>
+            <td>{{date}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+    {{else}}
+    <div class="alert alert-info" role="alert">
+      No notifications at the moment.
+    </div>
+    {{/if}}
+  </div>
+</template>

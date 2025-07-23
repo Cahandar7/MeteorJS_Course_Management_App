@@ -1,0 +1,130 @@
+<template name="coursesAdmin">
+  <div class="container py-4">
+    <h1 class="mb-4 text-center text-primary">📚 All Courses</h1>
+
+    <div class="row">
+      <div class="col-md-5">
+        <div class="card shadow-sm p-4 mb-4 bg-light">
+          <h4 class="mb-3 text-secondary">Add New Course</h4>
+          <form class="course-form">
+            <div class="mb-3">
+              <label class="form-label">Title</label>
+              <input
+                type="text"
+                class="form-control title"
+                name="title"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Description</label>
+              <input
+                type="text"
+                class="form-control desc"
+                name="description"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Category</label>
+              <input
+                type="text"
+                class="form-control category"
+                name="category"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Duration (hours)</label>
+              <input
+                type="number"
+                class="form-control duration"
+                name="duration"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Number of Modules</label>
+              <input
+                type="number"
+                class="form-control num-of-modules"
+                name="numModules"
+                required
+              />
+            </div>
+
+            <div id="modules-container"></div>
+
+            <div class="d-flex justify-content-between">
+              <button type="submit" class="btn btn-success">
+                ➕ Add Course
+              </button>
+              <button type="button" class="btn btn-outline-danger clear-btn">
+                Clear
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div class="mb-5 d-flex gap-3 align-items-end">
+          <div>
+            <label class="form-label">Filter by Category</label>
+            <select class="form-select filter-category">
+              <option value="">All</option>
+              {{#each getCategories}}
+              <option value="{{this}}">{{this}}</option>
+              {{/each}}
+            </select>
+          </div>
+
+          <button class="btn btn-outline-primary filter-btn">🔍 Filter</button>
+          <button class="btn btn-outline-secondary reset-filter-btn">
+            🔄 Reset
+          </button>
+        </div>
+      </div>
+
+      <div class="col-md-7">
+        {{#each getCourses}}
+        <div
+          class="card shadow-sm p-3 mb-4 bg-white rounded border-start border-4 border-primary"
+        >
+          <div class="card-body">
+            <h5 class="card-title text-primary mb-2">{{title}}</h5>
+
+            <p class="card-text mb-1">
+              <strong>📝 Description:</strong> {{desc}}
+            </p>
+            <p class="card-text mb-1">
+              <strong>🏷️ Category:</strong> {{category}}
+            </p>
+            <p class="card-text mb-1">
+              <strong>⏱ Duration:</strong> {{duration}} hours
+            </p>
+            <p class="card-text mb-3">
+              <strong>📦 Modules:</strong> {{numModules}}
+            </p>
+
+            <div class="d-flex gap-2">
+              <button class="btn btn-sm btn-danger delete-btn">🗑 Delete</button>
+              <a
+                href="/admin/courses/edit/{{_id}}"
+                class="btn btn-sm btn-warning"
+              >
+                ✏️ Edit
+              </a>
+              <a href="/admin/courses/{{_id}}" class="btn btn-sm btn-primary"
+                >ℹ️ Info</a
+              >
+            </div>
+          </div>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</template>

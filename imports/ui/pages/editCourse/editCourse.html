@@ -1,0 +1,84 @@
+<template name="editCourse">
+  {{#if getCourse}}
+  <div class="col-md-5">
+    <div class="card shadow-sm p-4 mb-4 bg-light">
+      <h4 class="mb-3 text-secondary">Edit Course</h4>
+      <form class="edit-course-form">
+        <div class="mb-3">
+          <label class="form-label">Title</label>
+          <input
+            type="text"
+            class="form-control title"
+            name="title"
+            value="{{getCourse.title}}"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Description</label>
+          <input
+            type="text"
+            class="form-control desc"
+            name="description"
+            value="{{getCourse.desc}}"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Category</label>
+          <input
+            type="text"
+            class="form-control category"
+            name="category"
+            value="{{getCourse.category}}"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Duration (hours)</label>
+          <input
+            type="number"
+            class="form-control duration"
+            name="duration"
+            value="{{getCourse.duration}}"
+            required
+          />
+        </div>
+
+        {{#if getCourse.modules}}
+        <div id="modules-container">
+          {{#each getCourse.modules}}
+          <div class="mb-3 module-input">
+            <label class="form-label">Module Title</label>
+            <input
+              type="text"
+              class="form-control module-title"
+              name="moduleTitle"
+              value="{{this.title}}"
+              required
+            />
+
+            <label class="form-label mt-2">Module Description</label>
+            <input
+              type="text"
+              class="form-control module-desc"
+              name="moduleDesc"
+              value="{{this.description}}"
+            />
+          </div>
+          {{/each}}
+        </div>
+        {{/if}}
+
+        <div class="d-flex justify-content-between">
+          <button type="submit" class="btn btn-success">Save</button>
+          <a href="/admin/courses" class="btn btn-dark">Back</a>
+        </div>
+      </form>
+    </div>
+  </div>
+  {{/if}}
+</template>

@@ -1,0 +1,151 @@
+<template name="coursesInfoStudent">
+  {{#if getCourse}}
+  <div
+    class="card shadow-sm p-3 mb-4 bg-white rounded border-start border-4 border-primary w-75 d-block mx-auto"
+  >
+    {{#if isCourseCompleted getCourse._id}}
+    <h6 class="text-success text-center mt-3">Course Completed</h6>
+    <button
+      class="btn btn-outline-primary mt-2 d-block mx-auto"
+      data-bs-toggle="modal"
+      data-bs-target="#feedbackModal"
+    >
+      Leave Feedback
+    </button>
+    {{else if isCourseStarted getCourse._id}}
+    <h6 class="text-primary text-center mt-3">Course Started</h6>
+    {{else}}
+    <button
+      class="btn btn-primary mt-3 w-50 d-block mx-auto"
+      data-id="{{_id}}"
+      id="start-course-btn"
+    >
+      Start Course
+    </button>
+    {{/if}}
+
+    <div class="card-body">
+      <h5 class="card-title text-primary mb-2">{{getCourse.title}}</h5>
+
+      <p class="card-text mb-1">
+        <strong>📝 Description:</strong> {{getCourse.desc}}
+      </p>
+      <p class="card-text mb-1">
+        <strong>🏷️ Category:</strong> {{getCourse.category}}
+      </p>
+      <p class="card-text mb-1">
+        <strong>⏱ Duration:</strong> {{getCourse.duration}} hours
+      </p>
+      <p class="card-text mb-3">
+        <strong>📦 Modules:</strong> {{getCourse.numModules}} modules
+      </p>
+
+      <div
+        class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mb-3"
+      >
+        {{#each getCourseModules}}
+        <div class="col">
+          <div class="card h-100 shadow-sm">
+            {{#if getCourseModuleImg _id}}
+            <img
+              src="{{getCourseModuleImg _id}}"
+              class="card-img-top"
+              alt="image"
+              height="200"
+              style="object-fit: cover"
+            />
+            {{/if}}
+            <div class="card-body">
+              <h5 class="card-title"><strong>{{title}}</strong></h5>
+              <p class="card-text">{{description}}</p>
+
+              {{#if isCourseStarted getCourse._id}}
+              <div class="form-check mt-3">
+                {{#if isModuleCompleted _id}}
+                <input
+                  class="form-check-input isModuleCompleted"
+                  type="checkbox"
+                  name="completeModule"
+                  id="moduleCheck-{{_id}}"
+                  value="{{_id}}"
+                  checked
+                  disabled
+                />
+                <label class="form-check-label" for="moduleCheck-{{_id}}">
+                  Module Completed
+                </label>
+                {{else}}
+                <input
+                  class="form-check-input isModuleCompleted"
+                  type="checkbox"
+                  name="completeModule"
+                  id="moduleCheck-{{_id}}"
+                  value="{{_id}}"
+                />
+                <label class="form-check-label" for="moduleCheck-{{_id}}">
+                  Complete Module
+                </label>
+                {{/if}}
+              </div>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+  {{/if}}
+
+  <!-- Feedback Modal -->
+  <div
+    class="modal fade"
+    id="feedbackModal"
+    tabindex="-1"
+    aria-labelledby="feedbackModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form id="feedbackForm">
+          <div class="modal-header">
+            <h5 class="modal-title" id="feedbackModalLabel">Course Feedback</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="feedbackText" class="form-label">Your Feedback</label>
+              <textarea
+                class="form-control"
+                id="feedbackText"
+                rows="4"
+                required
+              ></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="feedbackRating" class="form-label">Rating</label>
+              <select class="form-select" id="feedbackRating" required>
+                <option value="">Select a rating</option>
+                <option value="5">🌟🌟🌟🌟🌟</option>
+                <option value="4">🌟🌟🌟🌟</option>
+                <option value="3">🌟🌟🌟</option>
+                <option value="2">🌟🌟</option>
+                <option value="1">🌟</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">
+              Submit Feedback
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</template>

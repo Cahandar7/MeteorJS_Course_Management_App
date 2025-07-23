@@ -1,0 +1,40 @@
+<template name="adminHeader">
+  <div class="container">
+    <header class="d-flex justify-content-between align-items-center py-3">
+      <ul class="nav nav-pills">
+        <li class="nav-item">
+          <a
+            href="/admin/courses"
+            class="nav-link {{isActive '/admin/courses'}}"
+            >Courses</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            href="/admin/students"
+            class="nav-link {{isActive '/admin/students'}}"
+            >Students</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            href="/admin/notifications"
+            class="nav-link {{isActive '/admin/notifications'}}"
+            >Notifications</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            href="/admin/feedbacks"
+            class="nav-link {{isActive '/admin/feedbacks'}}"
+            >FeedBacks</a
+          >
+        </li>
+      </ul>
+
+      <button class="btn btn-outline-danger btn-sm" id="logout-btn">
+        Logout
+      </button>
+    </header>
+  </div>
+</template>

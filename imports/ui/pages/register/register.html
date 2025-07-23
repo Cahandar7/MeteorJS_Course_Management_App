@@ -1,0 +1,81 @@
+<template name="register">
+  <div class="d-flex justify-content-center align-items-center vh-100 bg-light">
+    <div class="card shadow p-4" style="width: 100%; max-width: 500px">
+      <h3 class="text-center mb-4">📝 Register</h3>
+      <form id="register-form">
+        <div class="mb-3">
+          <label for="registerEmail" class="form-label">Email address</label>
+          <input
+            type="email"
+            class="form-control"
+            id="registerEmail"
+            placeholder="Enter email"
+            required
+          />
+        </div>
+        <div class="mb-4">
+          <label for="registerPassword" class="form-label">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="registerPassword"
+            placeholder="Password"
+            required
+          />
+        </div>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="firstName" class="form-label">First Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="firstName"
+              placeholder="John"
+              required
+            />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="lastName"
+              placeholder="Doe"
+              required
+            />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="gender" class="form-label">Gender</label>
+          <select id="gender" class="form-select" required>
+            <option selected disabled>Choose...</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="age" class="form-label">Age</label>
+          <input
+            type="number"
+            class="form-control"
+            id="age"
+            placeholder="18"
+            min="1"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="role" class="form-label">Role</label>
+          <select id="role" class="form-select" required>
+            <option selected disabled>Choose...</option>
+            <option value="admin">Admin</option>
+            <option value="student">Student</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-success w-100 mb-3">Register</button>
+        <a href="/admin/students" class="btn btn-dark w-100">Back</a>
+      </form>
+    </div>
+  </div>
+</template>

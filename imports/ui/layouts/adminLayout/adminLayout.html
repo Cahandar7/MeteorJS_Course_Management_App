@@ -1,0 +1,6 @@
+<template name="adminLayout">
+  {{#if isPassing}} {{> adminHeader}}
+  <br />
+  <main>{{> Template.dynamic template=main }}</main>
+  {{/if}}
+</template>

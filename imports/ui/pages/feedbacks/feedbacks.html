@@ -1,0 +1,36 @@
+<template name="feedbacks">
+  <div class="container py-4">
+    <h3 class="text-primary mb-4">🗣️ Student Feedback</h3>
+
+    {{#if getFeedbacks.length}}
+    <div class="row g-4">
+      {{#each getFeedbacks}}
+      <div class="col-md-6 col-lg-4">
+        <div class="card shadow-sm border-0 h-100">
+          <div class="card-body">
+            <h6 class="card-title mb-1 text-primary">
+              {{getStudentName studentId}}
+              <small class="text-muted d-block mt-1" style="font-size: 0.85rem">
+                <b>ID:</b> <i>{{studentId}}</i>
+              </small>
+            </h6>
+            <p class="card-text mb-2"><b>Message:</b> <i>{{content}}</i></p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <span class="text-warning">
+                  {{#each starsArray rating}} ★ {{/each}}
+                </span>
+                <small class="text-muted">({{rating}}/5)</small>
+              </div>
+              <small class="text-muted">{{date}}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+    {{else}}
+    <div class="alert alert-info text-center">No feedback available yet.</div>
+    {{/if}}
+  </div>
+</template>
