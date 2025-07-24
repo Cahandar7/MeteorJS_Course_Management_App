@@ -8,10 +8,6 @@ Template.coursesAdmin.onCreated(function () {
   this.autorun(() => {
     this.subscribe("getCourses");
   });
-
-  this.autorun(() => {
-    this.subscribe("courseCategories");
-  });
 });
 
 Template.coursesAdmin.onRendered(function () {

@@ -6,7 +6,6 @@ Template.courses.onCreated(function () {
     let courses = Meteor.user()?.profile?.enrolledCourses.map(
       (course) => course.courseId
     );
-    console.log(courses);
     if (courses?.length) {
       this.subscribe("getCourses", {
         _id: {

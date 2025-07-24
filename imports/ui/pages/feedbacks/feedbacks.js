@@ -4,6 +4,8 @@ import "./feedbacks.html";
 Template.feedbacks.onCreated(function () {
   this.autorun(() => {
     this.subscribe("feedbacks");
+  });
+  this.autorun(() => {
     this.subscribe("getStudents");
   });
 });

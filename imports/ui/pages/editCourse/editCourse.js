@@ -1,20 +1,25 @@
 import "./editCourse.html";
-import { Courses } from "../../../api/courses/collections";
+import { CourseModules, Courses } from "../../../api/courses/collections";
 import { FlowRouter } from "meteor/ostrio:flow-router-extra";
 
 Template.editCourse.onCreated(function () {
-  this.courseId = FlowRouter.getParam("_id");
+  this.courseId = new ReactiveVar(FlowRouter.getParam("_id"));
 
   this.autorun(() => {
-    this.subscribe("getCourses", { _id: this.courseId });
+    this.subscribe("getCourses", { _id: this.courseId.get() });
   });
 });
 
 Template.editCourse.helpers({
   getCourse() {
-    return Courses.findOne({ _id: Template.instance().courseId });
+    return Courses.findOne({ _id: Template.instance().courseId.get() });
   },
-  plusOne(index) {
+  getModules() {
+    return CourseModules.find({
+      courseId: Template.instance().courseId.get(),
+    }).fetch();
+  },
+  IndexingModules(index) {
     return index + 1;
   },
 });
@@ -22,8 +27,6 @@ Template.editCourse.helpers({
 Template.editCourse.events({
   "submit .edit-course-form"(event, template) {
     event.preventDefault();
-
-    const courseId = FlowRouter.getParam("_id");
 
     let title = $(".edit-course-form .title").val();
     let desc = $(".edit-course-form .desc").val();
@@ -39,14 +42,37 @@ Template.editCourse.events({
       numModules,
     };
 
-    Meteor.call("updateCourse", courseId, updatedCourse, (error) => {
-      if (error) {
-        alert("Update failed");
-        console.error(error);
-      } else {
-        alert("Course updated!");
-        FlowRouter.go("/admin/courses");
+    Meteor.call(
+      "updateCourse",
+      template.courseId.get(),
+      updatedCourse,
+      (error) => {
+        if (error) {
+          alert("Update failed");
+          console.error(error);
+        } else {
+          $(".module-input").each(function () {
+            const moduleId = $(this).find(".module-id").val();
+            const title = $(this).find(".module-title").val();
+            const description = $(this).find(".module-desc").val();
+
+            const updatedModule = { title, description };
+
+            Meteor.call(
+              "updateCourseModule",
+              moduleId,
+              updatedModule,
+              (err) => {
+                if (err) {
+                  console.error("Module update error:", err);
+                }
+              }
+            );
+          });
+          alert("Course updated!");
+          FlowRouter.go("/admin/courses");
+        }
       }
-    });
+    );
   },
 });

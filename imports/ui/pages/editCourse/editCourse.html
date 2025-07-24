@@ -1,83 +1,117 @@
 <template name="editCourse">
   {{#if getCourse}}
-  <div class="col-md-5">
-    <div class="card shadow-sm p-4 mb-4 bg-light">
-      <h4 class="mb-3 text-secondary">Edit Course</h4>
-      <form class="edit-course-form">
-        <div class="mb-3">
-          <label class="form-label">Title</label>
-          <input
-            type="text"
-            class="form-control title"
-            name="title"
-            value="{{getCourse.title}}"
-            required
-          />
-        </div>
+  <div class="container py-4">
+    <div class="row justify-content-center">
+      <div class="col-lg-10 col-xl-8">
+        <div class="card shadow-lg p-4 bg-white border-0 rounded-4">
+          <h3 class="text-center text-primary mb-4">🛠️ Edit Course</h3>
 
-        <div class="mb-3">
-          <label class="form-label">Description</label>
-          <input
-            type="text"
-            class="form-control desc"
-            name="description"
-            value="{{getCourse.desc}}"
-            required
-          />
-        </div>
+          <form class="edit-course-form">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Title</label>
+                <input
+                  type="text"
+                  class="form-control title"
+                  name="title"
+                  value="{{getCourse.title}}"
+                  required
+                />
+              </div>
 
-        <div class="mb-3">
-          <label class="form-label">Category</label>
-          <input
-            type="text"
-            class="form-control category"
-            name="category"
-            value="{{getCourse.category}}"
-            required
-          />
-        </div>
+              <div class="col-md-6">
+                <label class="form-label">Category</label>
+                <input
+                  type="text"
+                  class="form-control category"
+                  name="category"
+                  value="{{getCourse.category}}"
+                  required
+                />
+              </div>
 
-        <div class="mb-3">
-          <label class="form-label">Duration (hours)</label>
-          <input
-            type="number"
-            class="form-control duration"
-            name="duration"
-            value="{{getCourse.duration}}"
-            required
-          />
-        </div>
+              <div class="col-md-6">
+                <label class="form-label">Duration (hours)</label>
+                <input
+                  type="number"
+                  class="form-control duration"
+                  name="duration"
+                  value="{{getCourse.duration}}"
+                  required
+                />
+              </div>
 
-        {{#if getCourse.modules}}
-        <div id="modules-container">
-          {{#each getCourse.modules}}
-          <div class="mb-3 module-input">
-            <label class="form-label">Module Title</label>
-            <input
-              type="text"
-              class="form-control module-title"
-              name="moduleTitle"
-              value="{{this.title}}"
-              required
-            />
+              <div class="col-md-6">
+                <label class="form-label">Number of Modules</label>
+                <input
+                  type="number"
+                  class="form-control num-of-modules"
+                  name="numModules"
+                  value="{{getCourse.numModules}}"
+                  required
+                />
+              </div>
 
-            <label class="form-label mt-2">Module Description</label>
-            <input
-              type="text"
-              class="form-control module-desc"
-              name="moduleDesc"
-              value="{{this.description}}"
-            />
-          </div>
-          {{/each}}
-        </div>
-        {{/if}}
+              <div class="col-12">
+                <label class="form-label">Description</label>
+                <textarea
+                  class="form-control desc"
+                  name="description"
+                  rows="3"
+                  required
+                >
+{{getCourse.desc}}</textarea
+                >
+              </div>
+            </div>
 
-        <div class="d-flex justify-content-between">
-          <button type="submit" class="btn btn-success">Save</button>
-          <a href="/admin/courses" class="btn btn-dark">Back</a>
+            {{#if getModules}}
+            <hr class="my-4" />
+            <h5 class="text-secondary mb-3">📚 Modules</h5>
+            <div id="modules-container">
+              {{#each getModules}}
+              <div
+                class="border-start border-4 border-primary bg-light p-3 mb-3 rounded module-input"
+              >
+                <input type="hidden" class="module-id" value="{{this._id}}" />
+
+                <h6 class="mb-3 fw-semibold text-primary">
+                  Module {{IndexingModules @index}}
+                </h6>
+
+                <label class="form-label">Module Title</label>
+                <input
+                  type="text"
+                  class="form-control module-title mb-2"
+                  name="moduleTitle"
+                  value="{{this.title}}"
+                  required
+                />
+
+                <label class="form-label">Module Description</label>
+                <input
+                  type="text"
+                  class="form-control module-desc"
+                  name="moduleDesc"
+                  value="{{this.description}}"
+                />
+              </div>
+              {{/each}}
+            </div>
+            {{/if}}
+
+            <!-- Actions -->
+            <div class="d-flex justify-content-between mt-4">
+              <a href="/admin/courses" class="btn btn-outline-secondary">
+                ← Back
+              </a>
+              <button type="submit" class="btn btn-success">
+                💾 Save Changes
+              </button>
+            </div>
+          </form>
         </div>
-      </form>
+      </div>
     </div>
   </div>
   {{/if}}

@@ -41,7 +41,6 @@ Template.coursesInfoStudent.helpers({
         ?.state === "In Progress"
     );
   },
-
   isCourseCompleted: function (id) {
     return (
       Meteor.users

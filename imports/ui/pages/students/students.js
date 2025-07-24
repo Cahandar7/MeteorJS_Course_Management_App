@@ -7,6 +7,7 @@ Template.students.onCreated(function () {
   this.autorun(() => {
     this.subscribe("getStudents");
   });
+
   this.autorun(() => {
     this.subscribe("getCourses");
   });

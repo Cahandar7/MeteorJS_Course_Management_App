@@ -21,11 +21,15 @@ Meteor.methods({
   updateCourse: function (courseId, updatedData) {
     return Courses.update(courseId, { $set: updatedData });
   },
+  updateCourseModule: function (moduleId, updatedData) {
+    return CourseModules.update(moduleId, { $set: updatedData });
+  },
   deleteCourses: function (query = {}) {
     const courseId = query._id;
 
     const courseModules = CourseModules.find({ courseId }).fetch();
-    const moduleIds = courseModules.map((mod) => mod.moduleId);
+
+    const moduleIds = courseModules.map((mod) => mod._id);
 
     Course_Module_Img.remove({
       "meta.moduleId": { $in: moduleIds },
@@ -33,7 +37,7 @@ Meteor.methods({
 
     CourseModules.remove({ courseId });
 
-    return Courses.remove(query);
+    Courses.remove(query);
   },
   completeStudentModule: function (studentId, courseId, moduleId) {
     CompletedModules.upsert(
