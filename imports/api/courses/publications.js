@@ -7,14 +7,6 @@ import {
 } from "./collections";
 
 Meteor.publishComposite("getCourses", function (query = {}) {
-  // const { category = "" } = query;
-
-  // let filter = {};
-
-  // if (category) {
-  //   filter.category = category;
-  // }
-
   return {
     find() {
       return Courses.find(query, { sort: { createdAt: -1 } });

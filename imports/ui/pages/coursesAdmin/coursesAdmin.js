@@ -6,7 +6,11 @@ Template.coursesAdmin.onCreated(function () {
   this.filterCategory = new ReactiveVar("");
 
   this.autorun(() => {
-    this.subscribe("getCourses");
+    this.subscribe("courseCategories");
+  });
+
+  this.autorun(() => {
+    this.subscribe("getCourses", { category: this.filterCategory.get() });
   });
 });
 
